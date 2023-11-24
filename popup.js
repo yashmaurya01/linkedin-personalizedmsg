@@ -7,10 +7,10 @@ if (scrapeLinkedIn) {
             const currentPageUrl = tabs[0].url;
 
             // Display the current page URL in an alert
-            alert("Current Page URL: " + currentPageUrl);
+            // alert("Current Page URL: " + currentPageUrl);
 
             // Additional alert for debugging
-            alert("Button Clicked!");
+            // alert("Button Clicked!");
 
             // Send a message to the background script to initiate the extraction process
             chrome.runtime.sendMessage({ action: 'extractInfo' });
