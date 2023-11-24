@@ -59,25 +59,16 @@ summer internships. I'd love to learn more about the exciting work happening at 
             .then(data => {
                 const generatedText = data.candidates[0].output;
                 console.log(generatedText);
-                alert(`Username: ${username}\nHeadline: ${headline}\nGenerated Text: ${generatedText}`);
-                const copyButton = document.createElement('button');
-                copyButton.textContent = 'Copy to Clipboard';
-                copyButton.addEventListener('click', () => {
-                    // Copy the generated text to the clipboard
-                    navigator.clipboard.writeText(generatedText)
-                        .then(() => alert('Generated text copied to clipboard!'))
-                        .catch(err => console.error('Unable to copy to clipboard', err));
+                navigator.clipboard.writeText(generatedText)
+                .then(() => {
+                    console.log('Text copied to clipboard:', generatedText);
+                    // You can optionally provide user feedback or perform other actions here
+                })
+                .catch(err => {
+                    console.error('Unable to copy text to clipboard', err);
+                    // Handle the error appropriately
                 });
-
-                // Append the copy button to the alert message
-                const alertContainer = document.createElement('div');
-                alertContainer.innerHTML = alertMessage;
-                alertContainer.appendChild(copyButton);
-
-                // Display the alert with the message and copy button
-                alert({
-                    content: alertContainer,
-                });
+                alert(`Generated Text and put it on your clipboard!`);
             })
             .catch(error => {
                 console.error('Error:', error);
