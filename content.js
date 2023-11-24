@@ -7,9 +7,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             const username = usernameElement.textContent.trim();
             const headline = headlineElement.textContent.trim();
 
-            // Display the information in an alert
-            alert(`Username: ${username}\nHeadline: ${headline}`);
-
             const curlPrompt = {
                 prompt: {
                     text: `You are Yash Maurya, a Privacy Engineering Graduate student at Carnegie Mellon University. 
@@ -51,7 +48,7 @@ summer internships. I'd love to learn more about the exciting work happening at 
                 }
             };
 
-            fetch('https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${API_KEY}', {
+            fetch('https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -60,7 +57,27 @@ summer internships. I'd love to learn more about the exciting work happening at 
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                const generatedText = data.candidates[0].output;
+                console.log(generatedText);
+                alert(`Username: ${username}\nHeadline: ${headline}\nGenerated Text: ${generatedText}`);
+                const copyButton = document.createElement('button');
+                copyButton.textContent = 'Copy to Clipboard';
+                copyButton.addEventListener('click', () => {
+                    // Copy the generated text to the clipboard
+                    navigator.clipboard.writeText(generatedText)
+                        .then(() => alert('Generated text copied to clipboard!'))
+                        .catch(err => console.error('Unable to copy to clipboard', err));
+                });
+
+                // Append the copy button to the alert message
+                const alertContainer = document.createElement('div');
+                alertContainer.innerHTML = alertMessage;
+                alertContainer.appendChild(copyButton);
+
+                // Display the alert with the message and copy button
+                alert({
+                    content: alertContainer,
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
