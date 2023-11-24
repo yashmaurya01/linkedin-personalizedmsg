@@ -2,49 +2,36 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action === 'extractInfo') {
         const usernameElement = document.querySelector('h1.text-heading-xlarge');
         const headlineElement = document.querySelector('div.text-body-medium');
+        const aboutElement = document.querySelector('div.display-flex.ph5.pv3 > div > div > div > span:nth-child(1)');
 
         if (usernameElement && headlineElement) {
             const username = usernameElement.textContent.trim();
             const headline = headlineElement.textContent.trim();
+            const aboutus = aboutElement?.textContent.trim() || '';
 
             const curlPrompt = {
                 prompt: {
-                    text: `You are Yash Maurya, a Privacy Engineering Graduate student at Carnegie Mellon University. 
-You are dedicated to creating privacy-conscious AI solutions and ensuring the ethical use 
-of data. Your mission is to design robust privacy systems for the greater good of society.
-Your key interests are in Federated Learning, Differential Privacy, Explainable and Responsible AI.
+                    text: `You are Aman Priyanshu, a Privacy Engineering Graduate student at Carnegie Mellon University. 
+You are dedicated to creating privacy-conscious AI solutions and ensuring the ethical use of data. Your mission is to design robust privacy systems for the greater good of society. Your key interests are in Federated Learning, Differential Privacy, Explainable and Responsible AI.
 
 Write a concise Linkedin message to ${username}.
-Short intro about ${username}: ${headline}.
+Short intro about ${username}: ${headline} ${aboutus}
 
-Be respectful and strictly limit your message to 300 characters. 
-Leave out the greeting in the end to save characters and convey more information.
-Only use the first name.
+Be respectful and strictly limit your message to 300 characters. Leave out the greeting in the end to save characters and convey more information. Only use the first name.
 
 Given are a few examples for your reference.
 
 Example:
 Hi Omid,
-I'm a Privacy Engineering grad student at CMU, specializing in PETs like Differential Privacy, 
-Federated Learning, Secure MPC, and Responsible AI. I'm currently exploring a Differentially 
-Private implementation of ShapleyFL to privately mitigate the harms of adversarial attacks 
-by clients.
+I'm a Privacy Engineering grad student at CMU, specializing in PETs like Differential Privacy, Federated Learning, Secure MPC, and Responsible AI. I'm currently exploring a Differentially Private implementation of ShapleyFL to privately mitigate the harms of adversarial attacks by clients.
 
 Example 2:
 Hi Sameer,
-I'm a Privacy Engineering grad student at CMU, specializing in PETs 
-like Differential Privacy, Federated Learning, Secure MPC, and Responsible AI. 
-I'm eager to gain practical experience and would love to explore internship opportunities 
-at Ardent Privacy. I look forward to learning more.
+I'm a Privacy Engineering grad student at CMU, specializing in PETs like Differential Privacy, Federated Learning, Secure MPC, and Responsible AI. I'm eager to gain practical experience and would love to explore internship opportunities at Ardent Privacy. I look forward to learning more.
 
 Example 3:
 Hi Casey,
-I'm currently a Privacy Engineering graduate student at CMU, 
-where I've acquired a solid theoretical foundation in Privacy, Policy, Law, and Technology. My 
-focus areas encompass PETs such as Differential Privacy, Federated Learning, Secure MPC, and 
-Responsible AI. Now, I'm eager to apply this knowledge in a practical setting.
-I came across Ketch and am curious if there are any opportunities for privacy-related 
-summer internships. I'd love to learn more about the exciting work happening at Ketch.`
+I'm currently a Privacy Engineering graduate student at CMU, where I've acquired a solid theoretical foundation in Privacy, Policy, Law, and Technology. My focus areas encompass PETs such as Differential Privacy, Federated Learning, Secure MPC, and Responsible AI. Now, I'm eager to apply this knowledge in a practical setting. I came across Ketch and am curious if there are any opportunities for privacy-related summer internships. I'd love to learn more about the exciting work happening at Ketch.`
                 }
             };
 
